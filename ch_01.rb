@@ -31,7 +31,7 @@ class Customer
 
   def statement
     total_amount, frequent_renter_points = 0, 0
-    rental = "Rental Record for #{@name}\n"
+    result = "Rental Record for #{@name}\n"
     @rentals.each do |element|
       this_amount = 0
       # determine amounts for each line
@@ -50,7 +50,7 @@ class Customer
       frequent_renter_points += 1
 
       # add bonus for a two day new release rental
-      if element.movie.price_code == Movie.NEW_RELEASE &&  element.days_rented > 1
+      if element.movie.price_code == Movie::NEW_RELEASE &&  element.days_rented > 1
         frequent_renter_points += 1
       end
       # show figures for this rental
@@ -65,9 +65,16 @@ class Customer
   end
 end
 
-movie = Movie.new("Jaws 2", "price_code")
+movie = Movie.new("Jaws 2", Movie::REGULAR)
 rental = Rental.new(movie, 3)
 customer = Customer.new("Josh Thompson")
 customer.add_rental(rental)
-customer.statement
+puts customer.statement
+
+movie_2 = Movie.new("Jaws 3", Movie::NEW_RELEASE)
+rental_2 = Rental.new(movie, 2)
+customer.add_rental(rental_2)
+puts customer.statement
+
+
 # the above is what I tried, all the rest will be modifications sorta-kinda hidden here
