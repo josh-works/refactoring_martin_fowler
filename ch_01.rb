@@ -1,7 +1,7 @@
 class Movie
   REGULAR = 0
-  NEW_RELEASE = 0
-  CHILDRENS = 0
+  NEW_RELEASE = 1
+  CHILDRENS = 2
 
   attr_reader :title
   attr_accessor :price_code
@@ -34,15 +34,14 @@ class Customer
     rental = "Rental Record for #{@name}\n"
     @rentals.each do |element|
       this_amount = 0
-
       # determine amounts for each line
       case element.movie.price_code
-      when Movie::Regular
+      when Movie::REGULAR
         this_amount += 2
         this_amount += (element.days_rented - 2) * 1.5 if element.days_rented > 2
       when Movie::NEW_RELEASE
         this_amount += elements.days_rented * 3
-      when Movie::CHILDENS
+      when Movie::CHILDRENS
         this_amount += 1.5
         this_amount += (element.days_rented - 3) * 1.5 if element.days_rented > 3
       end
@@ -65,3 +64,10 @@ class Customer
     result
   end
 end
+
+movie = Movie.new("Jaws 2", "price_code")
+rental = Rental.new(movie, 3)
+customer = Customer.new("Josh Thompson")
+customer.add_rental(rental)
+customer.statement
+# the above is what I tried, all the rest will be modifications sorta-kinda hidden here
