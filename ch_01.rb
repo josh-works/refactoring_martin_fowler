@@ -60,21 +60,35 @@ class Customer
 
     # add footer lines
     result += "Amount owed is #{total_amount}\n"
-    result += "You earned #{frequent_renter_points} frequent renter points"
+    result += "You earned #{frequent_renter_points} frequent renter points\n"
     result
   end
 end
 
-movie = Movie.new("Jaws 2", Movie::REGULAR)
-rental = Rental.new(movie, 3)
-customer = Customer.new("Josh Thompson")
-customer.add_rental(rental)
-puts customer.statement
-
-movie_2 = Movie.new("Jaws 3", Movie::NEW_RELEASE)
-rental_2 = Rental.new(movie, 2)
-customer.add_rental(rental_2)
-puts customer.statement
+# movie = Movie.new("Jaws 2", Movie::REGULAR)
+# rental = Rental.new(movie, 3)
+# customer = Customer.new("Josh Thompson")
+# customer.add_rental(rental)
+# puts customer.statement
+#
+# movie_2 = Movie.new("Jaws 3", Movie::NEW_RELEASE)
+# rental_2 = Rental.new(movie, 2)
+# customer.add_rental(rental_2)
+# customer.statement
 
 
 # the above is what I tried, all the rest will be modifications sorta-kinda hidden here
+#
+#
+# WtfTest#test_everything [test/ch_01_test.rb:24]:
+# --- expected
+# +++ actual
+# @@ -1,5 +1,5 @@
+#  "Rental Record for Josh Thompson
+#  \tJaws 2\t3.5
+# -Amount owed is 3.5
+# -You earned 1 frequent renter points
+# -"
+# +\tJaws 2\t2
+# +Amount owed is 5.5
+# +You earned 2 frequent renter points"
