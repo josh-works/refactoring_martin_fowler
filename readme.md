@@ -330,4 +330,4 @@ Fabulous run in 0.001011s, 989.1197 runs/s, 989.1197 assertions/s.
 In a moment, I'll share a screenshot with you. I suspect you'll _instantly_ know if you're seeing this or not. If you are, quest fearlessly onward. If not, stop and get it. It might take some time, but it'll be worth it. Find the difference between your code and mine:
 
 
-![passing_test](images/CleanShot 2022-11-21 at 22.15.22@2x.png)
+![passing_test](/images/CleanShot_2022-11-21_at_22.15.22@2x.png)
