@@ -1,6 +1,6 @@
 First 3 refactoring methods I learn:
 
-- [ ] tbd
+- [ ] Decomposing Conditionals
 - [ ] tbd
 - [ ] tbd
 
@@ -331,3 +331,69 @@ In a moment, I'll share a screenshot with you. I suspect you'll _instantly_ know
 
 
 ![passing_test](/images/CleanShot_2022-11-21_at_22.15.22@2x.png)
+
+# Chunk 4: Decomposing and Redistributing the Statement Method, p. 7
+
+_Have you been enjoying my information hierarchy? Lol._
+
+I wonder if "decompose a method" is a refactoring pattern... _flips through index and yep..._
+
+> Decompose Conditional Refactoring... [example]...[overview]
+
+> Decomposing conditional expressions [example, goals, overview, step-by-step]
+
+Hell. Yes. I'm gonna look at this code, then figure out how I could apply the `decomposing conditional` refactors to it.
+
+Ch 9, P 261. Read it, then pick up at page 7 again. Lets see if we can do a refactor, and if our tests can keep us happy.
+
+Boom. Extracted the conditional into the `amount_for(rental)` method. It _was_ `amount_for(element)`, but that was confusing. Done with page 11, and the key bits of the class look like:
+
+
+```ruby
+class Customer
+  # [...]
+
+  def statement
+    total_amount, frequent_renter_points = 0, 0
+    result = "Rental Record for #{@name}\n"
+    @rentals.each do |rental|
+      this_amount = amount_for(rental)
+      # add frequent renter points
+      frequent_renter_points += 1
+
+      # add bonus for a two day new release rental
+      if rental.movie.price_code == Movie::NEW_RELEASE &&  rental.days_rented > 1
+        frequent_renter_points += 1
+      end
+      # show figures for this rental
+      result += "\t" + rental.movie.title + "\t" + this_amount.to_s + "\n"
+      total_amount += this_amount
+    end
+
+    # add footer lines
+    result += "Amount owed is #{total_amount}\n"
+    result += "You earned #{frequent_renter_points} frequent renter points\n"
+    result
+  end
+
+  private
+
+  def amount_for(rental)
+    result = 0
+    # determine amounts for each line
+    case rental.movie.price_code
+    when Movie::REGULAR
+      result += 2
+      result += (rental.days_rented - 2) * 1.5 if rental.days_rented > 2
+    when Movie::NEW_RELEASE
+      result += rentals.days_rented * 3
+    when Movie::CHILDRENS
+      result += 1.5
+      result += (rental.days_rented - 3) * 1.5 if rental.days_rented > 3
+    end
+    result
+  end
+end
+```
+
+Git commit, going to bed. I'm another 15 minutes in, or about 1 hour total for the book today.
